@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jagadeeshwar Korra — Analytics Consulting & Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0a0c10;--bg2:#111318;--bg3:#181c24;
+    --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+    --text:#e8e6e0;--muted:#8a8880;
+    --teal:#28d9b0;--teal-dim:rgba(40,217,176,0.12);--teal-glow:rgba(40,217,176,0.25);
+    --amber:#f5a623;
+    --serif:'DM Serif Display',serif;--mono:'JetBrains Mono',monospace;--sans:'DM Sans',sans-serif;
+    --radius:10px;--radius-lg:18px;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(40,217,176,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(40,217,176,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(10,12,16,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:var(--mono);font-size:0.85rem;color:var(--teal);letter-spacing:0.05em;}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--teal);}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 3rem;position:relative;z-index:1;}
+  section{padding:7rem 0;}
+  .section-tag{font-family:var(--mono);font-size:0.72rem;color:var(--teal);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+  .section-tag::before{content:'';display:inline-block;width:28px;height:1px;background:var(--teal);}
+  .section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.15;margin-bottom:3.5rem;color:var(--text);}
+  #hero{min-height:100vh;display:flex;align-items:center;padding-top:6rem;}
+  .hero-inner{max-width:820px;}
+  .hero-eyebrow{font-family:var(--mono);font-size:0.8rem;color:var(--teal);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.7s ease 0.2s forwards;}
+  .hero-name{font-family:var(--serif);font-size:clamp(3rem,7vw,5.5rem);font-weight:400;line-height:1.05;margin-bottom:0.5rem;opacity:0;animation:fadeUp 0.7s ease 0.35s forwards;}
+  .hero-name em{color:var(--teal);font-style:italic;}
+  .hero-title{font-family:var(--mono);font-size:1rem;color:var(--muted);margin-bottom:2rem;opacity:0;animation:fadeUp 0.7s ease 0.5s forwards;}
+  .hero-title span{color:var(--amber);}
+  .hero-desc{font-size:1.1rem;color:var(--muted);max-width:620px;line-height:1.8;margin-bottom:3rem;opacity:0;animation:fadeUp 0.7s ease 0.65s forwards;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s ease 0.8s forwards;}
+  .hero-stats{display:flex;gap:3rem;margin-top:3.5rem;opacity:0;animation:fadeUp 0.7s ease 1s forwards;flex-wrap:wrap;}
+  .hero-stat-val{font-family:var(--serif);font-size:2rem;color:var(--teal);font-style:italic;display:block;}
+  .hero-stat-label{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;border-radius:var(--radius);font-family:var(--mono);font-size:0.8rem;letter-spacing:0.06em;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+  .btn-primary{background:var(--teal);color:#0a0c10;border:1px solid var(--teal);font-weight:500;}
+  .btn-primary:hover{background:transparent;color:var(--teal);}
+  .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);}
+  .btn-outline:hover{border-color:var(--teal);color:var(--teal);}
+  .hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 0.7s ease 1.2s forwards;}
+  .hero-scroll span{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+  .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--teal),transparent);animation:scrollPulse 2s ease infinite;}
+  #about .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;}
+  .about-avatar{position:relative;}
+  .avatar-frame{width:100%;aspect-ratio:3/4;background:var(--bg3);border-radius:var(--radius-lg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+  .avatar-initials{font-family:var(--serif);font-size:6rem;color:var(--teal);opacity:0.3;font-style:italic;}
+  .avatar-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--teal-dim),transparent 60%);}
+  .avatar-tag{position:absolute;bottom:-1rem;right:-1rem;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:0.75rem 1rem;font-family:var(--mono);font-size:0.75rem;}
+  .avatar-tag .stat-val{display:block;font-size:1.4rem;color:var(--teal);font-weight:500;}
+  .about-text p{color:var(--muted);font-size:1.05rem;line-height:1.9;margin-bottom:1.5rem;}
+  .about-text p strong{color:var(--text);font-weight:500;}
+  .about-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+  .fact{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;}
+  .fact-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem;}
+  .fact-val{font-size:0.9rem;color:var(--text);}
+  #skills{background:var(--bg2);}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .skill-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;transition:border-color 0.2s,transform 0.2s;}
+  .skill-card:hover{border-color:var(--teal);transform:translateY(-3px);}
+  .skill-icon{width:40px;height:40px;background:var(--teal-dim);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.25rem;}
+  .skill-card h3{font-family:var(--serif);font-size:1.1rem;font-weight:400;margin-bottom:1rem;color:var(--text);}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+  .tag{font-family:var(--mono);font-size:0.7rem;padding:0.25rem 0.65rem;border-radius:4px;background:var(--bg2);border:1px solid var(--border2);color:var(--muted);letter-spacing:0.04em;}
+  .tag.teal{background:var(--teal-dim);border-color:rgba(40,217,176,0.3);color:var(--teal);}
+  .timeline{position:relative;}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--teal),transparent);}
+  .timeline-item{padding-left:2.5rem;margin-bottom:3.5rem;position:relative;}
+  .timeline-item::before{content:'';position:absolute;left:-4px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal-glow);}
+  .timeline-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.5rem;}
+  .timeline-role{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--text);}
+  .timeline-period{font-family:var(--mono);font-size:0.72rem;color:var(--teal);letter-spacing:0.08em;padding:0.3rem 0.75rem;background:var(--teal-dim);border-radius:4px;white-space:nowrap;}
+  .timeline-company{font-family:var(--mono);font-size:0.8rem;color:var(--amber);margin-bottom:0.75rem;}
+  .timeline-desc{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:0.75rem;}
+  .timeline-bullets{list-style:none;margin:0.5rem 0 1rem;}
+  .timeline-bullets li{color:var(--muted);font-size:0.92rem;line-height:1.7;padding-left:1.2rem;position:relative;margin-bottom:0.4rem;}
+  .timeline-bullets li::before{content:'→';position:absolute;left:0;color:var(--teal);font-size:0.75rem;top:0.15rem;}
+  .timeline-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;}
+  .impact-badge{display:inline-block;font-family:var(--mono);font-size:0.7rem;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(40,217,176,0.25);border-radius:4px;padding:0.2rem 0.6rem;margin-bottom:0.75rem;}
+  .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+  .project-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;display:flex;flex-direction:column;transition:border-color 0.2s;}
+  .project-card:hover{border-color:var(--teal);}
+  .project-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+  .project-num{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;}
+  .project-card h3{font-family:var(--serif);font-size:1.25rem;font-weight:400;color:var(--text);margin-bottom:0.75rem;}
+  .project-card p{color:var(--muted);font-size:0.9rem;line-height:1.7;flex:1;margin-bottom:1rem;}
+  .project-impact{font-family:var(--mono);font-size:0.75rem;color:var(--teal);margin-bottom:1rem;}
+  #education{background:var(--bg2);}
+  .edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+  .edu-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;position:relative;overflow:hidden;transition:border-color 0.2s;}
+  .edu-card:hover{border-color:var(--teal);}
+  .edu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),transparent);}
+  .edu-degree{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--text);margin-bottom:0.4rem;}
+  .edu-school{font-family:var(--mono);font-size:0.8rem;color:var(--amber);margin-bottom:0.4rem;}
+  .edu-year{font-family:var(--mono);font-size:0.7rem;color:var(--muted);margin-bottom:0.5rem;}
+  .edu-cgpa{font-family:var(--mono);font-size:0.72rem;color:var(--teal);margin-bottom:0.75rem;}
+  .edu-note{font-size:0.88rem;color:var(--muted);line-height:1.6;}
+  #contact{text-align:center;}
+  .contact-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(40,217,176,0.06) 0%,transparent 70%);pointer-events:none;}
+  .contact-desc{color:var(--muted);font-size:1.05rem;max-width:480px;margin:0 auto 3rem;line-height:1.8;}
+  .contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:3rem;}
+  .contact-link{display:inline-flex;align-items:center;gap:0.6rem;padding:0.75rem 1.5rem;border:1px solid var(--border2);border-radius:var(--radius);font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;}
+  .contact-link:hover{border-color:var(--teal);color:var(--teal);}
+  footer{border-top:1px solid var(--border);padding:2rem 0;position:relative;z-index:1;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;}
+  .footer-copy{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.06em;}
+  .footer-back{font-family:var(--mono);font-size:0.7rem;color:var(--muted);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;}
+  .footer-back:hover{color:var(--teal);}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  @media(max-width:900px){nav{padding:1rem 1.5rem;}.wrap{padding:0 1.5rem;}#about .about-grid{grid-template-columns:1fr;gap:3rem;}.about-avatar{max-width:280px;}.skills-grid{grid-template-columns:repeat(2,1fr);}.projects-grid{grid-template-columns:1fr;}.edu-grid{grid-template-columns:1fr;}.about-facts{grid-template-columns:1fr;}.hero-stats{gap:1.5rem;}}
+  @media(max-width:600px){.nav-links{display:none;}.skills-grid{grid-template-columns:1fr;}.hero-name{font-size:3rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">jk.analytics</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="wrap" style="position:relative;width:100%;">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">// Analytics Consulting · Supply Chain · Data Science</p>
+      <h1 class="hero-name">Jagadeeshwar<br><em>Korra</em></h1>
+      <p class="hero-title">Engagement Manager · <span>~10 years experience</span> · London, UK</p>
+      <p class="hero-desc">Analytics consulting leader turning complex data into revenue-impacting decisions — across supply chain, demand planning, marketing analytics and enterprise data platforms for Fortune 100 organisations globally.</p>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn btn-primary">View Experience →</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="hero-stat-val">10+</span><span class="hero-stat-label">Years experience</span></div>
+        <div><span class="hero-stat-val">$80M+</span><span class="hero-stat-label">Client value delivered</span></div>
+        <div><span class="hero-stat-val">15+</span><span class="hero-stat-label">Fortune 100 clients</span></div>
+        <div><span class="hero-stat-val">55+</span><span class="hero-stat-label">Analysts led</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="wrap">
+    <p class="section-tag">01 — About Me</p>
+    <div class="about-grid">
+      <div class="about-avatar">
+        <div class="avatar-frame"><span class="avatar-initials">JK</span></div>
+        <div class="avatar-tag"><span class="stat-val">10yr</span>analytics leader</div>
+      </div>
+      <div class="about-text">
+        <h2 class="section-title">Data strategy that moves<br>the business forward.</h2>
+        <p>I'm <strong>Jagadeeshwar Korra</strong>, an Engagement Manager and Analytics Consulting leader currently based in <strong>London, UK</strong> at Tiger Analytics. Over the past decade I've worked across India and the UK with global organisations in retail, telecom, FMCG, healthcare, and supply chain.</p>
+        <p>My expertise sits at the intersection of <strong>analytics strategy, machine learning, and business transformation</strong> — translating messy, complex data environments into scalable platforms, planning intelligence tools, and revenue-impacting insights.</p>
+        <p>I've led teams of 55+ analysts, managed C-suite relationships, and delivered engagements that generated over <strong>$80M in measurable client value</strong> across forecasting, segmentation, replenishment and campaign analytics.</p>
+        <div class="about-facts">
+          <div class="fact"><div class="fact-label">Based in</div><div class="fact-val">London, UK</div></div>
+          <div class="fact"><div class="fact-label">Current role</div><div class="fact-val">Engagement Manager</div></div>
+          <div class="fact"><div class="fact-label">Email</div><div class="fact-val">Jagadeeshwar.korra@gmail.com</div></div>
+          <div class="fact"><div class="fact-label">Phone</div><div class="fact-val">+44 7500 251283</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="wrap">
+    <p class="section-tag">02 — Skills</p>
+    <h2 class="section-title">Expertise & Capabilities</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">📦</div><h3>Supply Chain Analytics</h3><div class="skill-tags"><span class="tag teal">Demand Planning</span><span class="tag teal">Inventory Optimisation</span><span class="tag">Auto Replenishment</span><span class="tag">DRP</span><span class="tag">S&OP</span><span class="tag">Capacity Planning</span></div></div>
+      <div class="skill-card"><div class="skill-icon">🤖</div><h3>Machine Learning & AI</h3><div class="skill-tags"><span class="tag teal">Forecasting Models</span><span class="tag teal">Predictive Modelling</span><span class="tag">ML Pipelines</span><span class="tag">Simulation & Optimisation</span><span class="tag">Heuristic Models</span></div></div>
+      <div class="skill-card"><div class="skill-icon">📊</div><h3>Analytics & BI</h3><div class="skill-tags"><span class="tag teal">KPI Design</span><span class="tag teal">Dashboard Development</span><span class="tag">Report Rationalisation</span><span class="tag">Channel Analytics</span><span class="tag">Marketing ROI</span></div></div>
+      <div class="skill-card"><div class="skill-icon">🏗️</div><h3>Data Platforms</h3><div class="skill-tags"><span class="tag teal">Data Domain Design</span><span class="tag teal">Reusable Data Assets</span><span class="tag">System-Agnostic Architecture</span><span class="tag">ETL/ELT</span><span class="tag">Data Governance</span></div></div>
+      <div class="skill-card"><div class="skill-icon">🧑‍💼</div><h3>Consulting & Leadership</h3><div class="skill-tags"><span class="tag teal">Stakeholder Management</span><span class="tag teal">C-Suite Engagement</span><span class="tag">Team Leadership (55+)</span><span class="tag">Account Management</span><span class="tag">Business Development</span></div></div>
+      <div class="skill-card"><div class="skill-icon">🛠️</div><h3>Tools & Techniques</h3><div class="skill-tags"><span class="tag teal">Python</span><span class="tag teal">SQL</span><span class="tag">Statistical Modelling</span><span class="tag">Customer Segmentation</span><span class="tag">Campaign Analytics</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="experience">
+  <div class="wrap">
+    <p class="section-tag">03 — Work Experience</p>
+    <h2 class="section-title">~10 Years of Impact</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="timeline-role">Engagement Manager, Analytics Consulting</h3>
+          <span class="timeline-period">Nov 2024 — Present</span>
+        </div>
+        <p class="timeline-company">Tiger Analytics · London, UK</p>
+        <ul class="timeline-bullets">
+          <li>Product-led design of system-agnostic supply chain data domains with analytics-ready KPIs for Inventory, Demand Planning, and DRP — creating <strong style="color:var(--text)">50+ reusable data assets</strong></li>
+          <li>Delivered planning & replenishment reports, reducing manual effort by <strong style="color:var(--text)">~30–40%</strong> and enabling faster, data-driven decisions</li>
+          <li>Led development of a <strong style="color:var(--text)">promotion simulation & optimisation engine</strong> to evaluate performance and model future scenarios, driving ROI</li>
+          <li>Built digital vs. offline performance dashboards to identify channel gaps and unlock sales uplift</li>
+        </ul>
+        <div class="timeline-tags"><span class="tag teal">Supply Chain</span><span class="tag teal">Data Platforms</span><span class="tag">Demand Planning</span><span class="tag">Simulation</span><span class="tag">KPI Design</span></div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="timeline-role">Global Supply Chain Analytics Lead</h3>
+          <span class="timeline-period">Aug 2023 — Oct 2024</span>
+        </div>
+        <p class="timeline-company">HP Inc · Bangalore, India</p>
+        <div class="impact-badge">💰 $2M estimated annual savings from multi-hub inventory model</div>
+        <ul class="timeline-bullets">
+          <li>Designed and developed an <strong style="color:var(--text)">optimised auto replenishment system</strong> integrating lead times, factory availability, and inventory KPIs</li>
+          <li>Projected <strong style="color:var(--text)">60% reduction in planning effort</strong> (25 → 10 man hours) through selective auto replenishment based on past variance</li>
+          <li>Designed a cost-effective multi-hub stock distribution model with <strong style="color:var(--text)">$2M estimated annual savings</strong></li>
+        </ul>
+        <div class="timeline-tags"><span class="tag teal">Auto Replenishment</span><span class="tag teal">Inventory Optimisation</span><span class="tag">Supply Chain</span><span class="tag">Global Operations</span></div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="timeline-role">Manager, Demand Planning & Supply Chain Analytics</h3>
+          <span class="timeline-period">Nov 2021 — Aug 2023</span>
+        </div>
+        <p class="timeline-company">Ernst & Young (EY) · Bangalore, India</p>
+        <div class="impact-badge">💰 Rs 300 Cr estimated annual savings · 100% tool adoption rate</div>
+        <ul class="timeline-bullets">
+          <li>Led supply chain transformation for one of India's biggest FMCG companies — <strong style="color:var(--text)">Rs 300 Cr estimated annual savings</strong> by reducing opportunity loss and transport costs</li>
+          <li>Designed & implemented ML forecast-based Distributor Order Placement & Shipment Planning tool — achieved <strong style="color:var(--text)">100% adoption rate</strong></li>
+          <li>Developed a demand planning module with short-to-long term forecasts (up to 18 months) for Saudi Arabia's largest dairy & food products company</li>
+        </ul>
+        <div class="timeline-tags"><span class="tag teal">Demand Planning</span><span class="tag teal">ML Forecasting</span><span class="tag">FMCG</span><span class="tag">S&OP</span><span class="tag">Team Leadership</span></div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="timeline-role">Analytics Consulting Manager</h3>
+          <span class="timeline-period">May 2015 — Mar 2020</span>
+        </div>
+        <p class="timeline-company">Mu Sigma · Bangalore, India</p>
+        <div class="impact-badge">🏆 High Performance Rating (4/200 managers) · Fast-tracked to account lead in 2.5 years</div>
+        <ul class="timeline-bullets">
+          <li>Led a team of <strong style="color:var(--text)">55 analysts</strong> for the digital wing of the world's largest retailer; managed relationships with 3 VPs and 11 functional directors</li>
+          <li>Built heuristic & automated item-level demand forecasting engine for <strong style="color:var(--text)">14M+ items</strong>, saving <strong style="color:var(--text)">$80M annually</strong></li>
+          <li>Rationalised 84 reports → 9 dashboards, reducing C-Suite decision-making time <strong style="color:var(--text)">5-fold</strong> across 12 divisions</li>
+          <li>Enabled <strong style="color:var(--text)">$55M cross-selling opportunities</strong> through customer segmentation for Fortune 50 telecom client</li>
+          <li>Increased retention rate by <strong style="color:var(--text)">8%</strong> through retention campaign analytics; reduced ~$20M annual subsidiary loss for Fortune 30 healthcare client</li>
+          <li>Generated <strong style="color:var(--text)">$1.4M revenue</strong> converting 4 pilot engagements across 3 client portfolios</li>
+        </ul>
+        <div class="timeline-tags"><span class="tag teal">Demand Forecasting</span><span class="tag teal">Customer Segmentation</span><span class="tag">Campaign Analytics</span><span class="tag">Retail</span><span class="tag">Telecom</span><span class="tag">Healthcare</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="wrap">
+    <p class="section-tag">04 — Key Achievements</p>
+    <h2 class="section-title">Highlights by Numbers</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-meta"><span class="project-num">01 —</span></div>
+        <h3>$80M Annual Savings — Demand Forecasting</h3>
+        <p>Heuristic and automated item-level demand forecasting engine for 14M+ SKUs at the world's largest retailer. Deployed 15+ automated forecasting tools across client networks with zero fault rate.</p>
+        <p class="project-impact">↓ $80M overstocking cost annually · 15+ tools deployed · Zero fault rate</p>
+        <div class="timeline-tags"><span class="tag teal">ML Forecasting</span><span class="tag">Retail</span><span class="tag">Automation</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-meta"><span class="project-num">02 —</span></div>
+        <h3>Promotion Simulation & Optimisation Engine</h3>
+        <p>Led development of a promotion analytics platform at Tiger Analytics evaluating historical performance and modelling future promotional scenarios for data-backed investment decisions.</p>
+        <p class="project-impact">↑ ROI on promotional spend · Scenario modelling at scale</p>
+        <div class="timeline-tags"><span class="tag teal">Simulation</span><span class="tag">Optimisation</span><span class="tag">Supply Chain</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-meta"><span class="project-num">03 —</span></div>
+        <h3>Auto Replenishment System — HP Inc</h3>
+        <p>Intelligent inventory replenishment system integrating lead times, factory availability, and inventory KPIs. Selective auto replenishment based on variance analysis cut manual planning by 60%.</p>
+        <p class="project-impact">↓ 60% planning effort · $2M annual savings from multi-hub model</p>
+        <div class="timeline-tags"><span class="tag teal">Auto Replenishment</span><span class="tag">Inventory</span><span class="tag">HP Inc</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-meta"><span class="project-num">04 —</span></div>
+        <h3>ML Distributor Order Planning Tool — EY</h3>
+        <p>ML-based forecasting tool for distributor order placement and shipment planning for India's largest FMCG company. Achieved 100% adoption through stakeholder engagement and capability showcases.</p>
+        <p class="project-impact">Rs 300 Cr estimated savings · 100% adoption rate</p>
+        <div class="timeline-tags"><span class="tag teal">ML</span><span class="tag">FMCG</span><span class="tag">Forecasting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="education">
+  <div class="wrap">
+    <p class="section-tag">05 — Education</p>
+    <h2 class="section-title">Academic Background</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">MBA — Operations & Marketing</div>
+        <div class="edu-school">Indian School of Business (ISB)</div>
+        <div class="edu-year">May 2020 — Aug 2021</div>
+        <div class="edu-cgpa">CGPA: 3.42 / 4.0 · Dual Major</div>
+        <div class="edu-note">Learning Project: Supply Chain & Operations Consultant for a medical device manufacturer (selected 1 of 20+ teams). Designed a low-cost spare parts delivery model with 75% reduction in turnaround time. Operations & Logistics Coordinator, Student Life Council.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">B.Tech — Electrical & Electronics Engineering</div>
+        <div class="edu-school">Vellore Institute of Technology (VIT)</div>
+        <div class="edu-year">Jul 2011 — May 2015</div>
+        <div class="edu-cgpa">CGPA: 8.74 / 10.0</div>
+        <div class="edu-note">Strong foundation in mathematics, systems thinking and engineering — a technical base that underpins analytical modelling and problem-solving work across all engagements.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Leadership Excellence — High Performance</div>
+        <div class="edu-school">Mu Sigma · Internal Recognition</div>
+        <div class="edu-year">2015 — 2020</div>
+        <div class="edu-note">Rated 4 out of 200 managers for outstanding account management, business development and delivery quality. Fast-tracked to manage an account (top 1% of 1,250) in 2.5 years vs. the standard 4-year path. Generated $1.4M revenue across 3 client portfolios.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Workshops Delivered — Firm Wide</div>
+        <div class="edu-school">Mu Sigma · Internal Programmes</div>
+        <div class="edu-year">2015 — 2020</div>
+        <div class="edu-note">Conducted 20+ firm-wide workshops on Art of Problem Solving (AoPS), Story Boarding, Effective Communication & Client Management. Led focus team (10/240 managers) driving delivery excellence across 15 Fortune 100 organisations.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact" style="position:relative;overflow:hidden;">
+  <div class="contact-glow"></div>
+  <div class="wrap" style="position:relative;z-index:1;text-align:center;">
+    <p class="section-tag" style="justify-content:center;">06 — Contact</p>
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="contact-desc">Open to new consulting engagements, advisory roles, and interesting data challenges. Based in London — happy to connect globally.</p>
+    <a href="mailto:Jagadeeshwar.korra@gmail.com" class="btn btn-primary" style="font-size:0.9rem;padding:1rem 2.5rem;">Jagadeeshwar.korra@gmail.com</a>
+    <div class="contact-links">
+      <a href="tel:+447500251283" class="contact-link">📞 +44 7500 251283</a>
+      <a href="https://linkedin.com/in/jagadeeshwarkorra" target="_blank" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="Jagadeeshwar_Korra.pdf" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Download CV
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="footer-copy">© 2025 Jagadeeshwar Korra · Analytics Consulting · London, UK</span>
+      <a href="#hero" class="footer-back">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+  },{threshold:0.1});
+  document.querySelectorAll('.skill-card,.project-card,.edu-card,.timeline-item').forEach(el=>{
+    el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+    observer.observe(el);
+  });
+  const sections=document.querySelectorAll('section[id]');
+  const navLinks=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let current='';
+    sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+    navLinks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+current?'var(--teal)':'';});
+  });
+</script>
+</body>
+</html>
